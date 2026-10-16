@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal | Luova Creation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <!-- ===== PASSWORD LOCK SCREEN ===== -->
+    <div class="login-wrapper" id="loginScreen">
+        <div class="login-card">
+            <div class="logo-mark">
+                <span class="logo-dot top"></span>
+                <div class="logo-oval">
+                    <span class="logo-letters">LC</span>
+                </div>
+                <span class="logo-dot bottom"></span>
+            </div>
+            <div class="logo-text">
+                <span>LUOVA CREATION</span>
+                <small>ADMINISTRATION PORTAL</small>
+            </div>
+            
+            <p class="login-subtitle">Enter security password to access the management dashboard.</p>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="adminPasswordInput">Security Password</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="adminPasswordInput" placeholder="Enter password..." autocomplete="current-password" required>
+                        <button type="button" id="togglePasswordBtn" class="toggle-pwd-btn" aria-label="Toggle password visibility">👁️</button>
+                    </div>
+                </div>
+                <div id="loginError" class="login-error" style="display:none;">
+                    Incorrect password. Access denied.
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">
+                    <span>Unlock Dashboard</span>
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+            </form>
+            <div class="login-footer">
+                <a href="../index.html" class="back-link">← Return to Website</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ADMIN DASHBOARD ===== -->
+    <div class="admin-app" id="adminDashboard" style="display:none;">
+        
+        <!-- TOP NAVBAR -->
+        <header class="admin-header">
+            <div class="header-left">
+                <div class="admin-brand">
+                    <div class="brand-monogram">LC</div>
+                    <div class="brand-info">
+                        <strong>Luova Creation</strong>
+                        <span>Control Center</span>
+                    </div>
+                </div>
+                <div class="repo-status-pill" id="repoStatusPill">
+                    <span class="status-dot"></span>
+                    <span class="status-text" id="statusPillText">GitHub: Not Connected</span>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <a href="../index.html" target="_blank" class="btn btn-outline btn-sm">
+                    <span>View Live Site</span>
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+                </a>
+                <button id="topPublishBtn" class="btn btn-gold btn-sm">
+                    <span class="btn-spinner" style="display:none;"></span>
+                    <span>Publish to Live Site</span>
+                </button>
+                <button id="logoutBtn" class="btn btn-ghost btn-sm" title="Log out">
+                    <span>Logout</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- MAIN LAYOUT -->
+        <div class="admin-body">
+            
+            <!-- SIDEBAR NAVIGATION -->
+            <aside class="admin-sidebar">
+                <nav class="sidebar-nav">
+                    <button class="nav-item active" data-tab="tab-github">
+                        <span class="nav-icon">🔑</span>
+                        <span class="nav-label">GitHub Token</span>
+                    </button>
+                    <button class="nav-item" data-tab="tab-services">
+                        <span class="nav-icon">🖼️</span>
+                        <span class="nav-label">Sections & Galleries</span>
+                    </button>
+                    <button class="nav-item" data-tab="tab-add-section">
+                        <span class="nav-icon">➕</span>
+                        <span class="nav-label">Add New Section</span>
+                    </button>
+                    <button class="nav-item" data-tab="tab-palette">
+                        <span class="nav-icon">🎨</span>
+                        <span class="nav-label">Colours & Gradients</span>
+                    </button>
+                    <button class="nav-item" data-tab="tab-texts">
+                        <span class="nav-icon">📝</span>
+                        <span class="nav-label">Website Texts</span>
+                    </button>
+                    <button class="nav-item" data-tab="tab-logo">
+                        <span class="nav-icon">🏷️</span>
+                        <span class="nav-label">Logo & Branding</span>
+                    </button>
+                    <button class="nav-item" data-tab="tab-contact">
+                        <span class="nav-icon">🔗</span>
+                        <span class="nav-label">Contact & Socials</span>
+                    </button>
+                    <button class="nav-item" data-tab="tab-faq">
+                        <span class="nav-icon">❓</span>
+                        <span class="nav-label">FAQ Manager</span>
+                    </button>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <button id="downloadBackupBtn" class="btn btn-outline btn-full btn-sm">
+                        <span>Download site-data.json</span>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- TAB CONTENT CONTAINER -->
+            <main class="admin-content">
+                
+                <!-- ALERT BANNER -->
+                <div id="adminNotification" class="notification-banner" style="display:none;">
+                    <span class="notification-text"></span>
+                    <button class="notification-close" onclick="this.parentElement.style.display='none'">✕</button>
+                </div>
+
+                <!-- ==================== TAB 1: GITHUB CONNECTION ==================== -->
+                <section class="tab-pane active" id="tab-github">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h2>GitHub Live Integration</h2>
+                                <p>Paste your GitHub Personal Access Token below. Once pasted, the admin panel automatically connects to your repository and instantly pushes any uploaded image or text changes live!</p>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="githubTokenInput">GitHub Personal Access Token (Classic or Fine-grained)</label>
+                                <div class="token-input-row">
+                                    <input type="password" id="githubTokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx or github_pat_xxxx..." autocomplete="off">
+                                    <button id="connectGithubBtn" class="btn btn-primary">
+                                        <span class="btn-spinner" style="display:none;"></span>
+                                        <span>Connect Repository</span>
+                                    </button>
+                                </div>
+                                <small class="form-hint">Token is stored locally in your browser. Needs <code>repo</code> permissions.</small>
+                            </div>
+
+                            <div id="githubDetailsCard" class="github-details" style="display:none;">
+                                <h3>Connected Repository Details</h3>
+                                <div class="details-grid">
+                                    <div class="detail-box">
+                                        <span class="detail-label">Authenticated User</span>
+                                        <span class="detail-value" id="ghUserName">—</span>
+                                    </div>
+                                    <div class="detail-box">
+                                        <span class="detail-label">Repository</span>
+                                        <select id="ghRepoSelect" class="select-inline"></select>
+                                    </div>
+                                    <div class="detail-box">
+                                        <span class="detail-label">Branch</span>
+                                        <input type="text" id="ghBranchInput" value="main" class="input-inline">
+                                    </div>
+                                    <div class="detail-box">
+                                        <span class="detail-label">Connection Status</span>
+                                        <span class="status-badge success" id="ghConnectionStatus">Connected & Active</span>
+                                    </div>
+                                </div>
+                                <div class="action-row">
+                                    <button id="syncFromGithubBtn" class="btn btn-outline btn-sm">Pull Latest Content from GitHub</button>
+                                    <button id="disconnectGithubBtn" class="btn btn-danger btn-sm">Disconnect Token</button>
+                                </div>
+                            </div>
+
+                            <!-- HELPER GUIDE -->
+                            <div class="help-box">
+                                <h4>How to get a GitHub Access Token in 30 seconds:</h4>
+                                <ol>
+                                    <li>Log into your account on <strong>GitHub.com</strong>.</li>
+                                    <li>Click your profile picture (top-right) → <strong>Settings</strong>.</li>
+                                    <li>In the left sidebar, scroll down to the bottom and click <strong>Developer Settings</strong>.</li>
+                                    <li>Click <strong>Personal access tokens</strong> → <strong>Tokens (classic)</strong> → <strong>Generate new token (classic)</strong>.</li>
+                                    <li>Give it any note (e.g., "Luova Admin"), set expiration, and check the <strong><code>repo</code></strong> scope checkbox.</li>
+                                    <li>Click <strong>Generate token</strong>, copy the code, and paste it into the box above!</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================== TAB 2: SECTIONS & GALLERIES ==================== -->
+                <section class="tab-pane" id="tab-services">
+                    <div class="card">
+                        <div class="card-header flex-between">
+                            <div>
+                                <h2>Manage Sections & Image Galleries</h2>
+                                <p>Select a section to update its cover image, title, and all photos in its gallery. Uploading new images automatically pushes them to GitHub!</p>
+                            </div>
+                            <div class="service-selector-wrapper">
+                                <label for="activeServiceSelect">Select Section:</label>
+                                <select id="activeServiceSelect" class="service-dropdown"></select>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <!-- SECTION INFO & COVER -->
+                            <div class="section-meta-grid">
+                                <div class="meta-inputs">
+                                    <div class="form-group">
+                                        <label for="currentSectionName">Section Name / Title</label>
+                                        <input type="text" id="currentSectionName">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="currentSectionSubtitle">Section Subtitle / Description</label>
+                                        <input type="text" id="currentSectionSubtitle">
+                                    </div>
+                                    <button id="saveSectionMetaBtn" class="btn btn-outline btn-sm">Save Section Title</button>
+                                    <button id="deleteCurrentSectionBtn" class="btn btn-danger btn-sm" style="margin-left:8px;">Delete Section</button>
+                                </div>
+
+                                <div class="cover-uploader-box">
+                                    <label>Section Cover Photo</label>
+                                    <div class="cover-preview-container">
+                                        <img id="currentSectionCoverImg" src="" alt="Section Cover">
+                                        <div class="cover-overlay">
+                                            <label class="btn btn-gold btn-sm upload-label">
+                                                <span>Change Cover Image</span>
+                                                <input type="file" id="changeCoverFileInput" accept="image/*" style="display:none;">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="divider">
+
+                            <!-- SECTION GALLERY IMAGES -->
+                            <div class="gallery-management-header">
+                                <div>
+                                    <h3>Gallery Images (<span id="galleryImageCount">0</span> photos)</h3>
+                                    <p>These photos open in the interactive gallery when a client clicks this section.</p>
+                                </div>
+                                <div class="gallery-actions">
+                                    <label class="btn btn-primary upload-label">
+                                        <span>+ Upload New Images to Gallery</span>
+                                        <input type="file" id="addGalleryImagesInput" accept="image/*" multiple style="display:none;">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="gallery-admin-grid" id="galleryAdminGrid">
+                                <!-- Dynamic thumbnails with delete button -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================== TAB 3: ADD NEW SECTION ==================== -->
+                <section class="tab-pane" id="tab-add-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h2>Add a Brand New Section</h2>
+                                <p>Create a new service or interior specialty (e.g. Balcony Design, Home Theatre, Commercial Office). It will instantly appear on your home page grid!</p>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <form id="newSectionForm">
+                                <div class="form-row">
+                                    <div class="form-group flex-1">
+                                        <label for="newSectionTitle">Section Title *</label>
+                                        <input type="text" id="newSectionTitle" placeholder="e.g. Dining Room & Bar" required>
+                                    </div>
+                                    <div class="form-group flex-1">
+                                        <label for="newSectionId">Section ID (Slug)</label>
+                                        <input type="text" id="newSectionId" placeholder="e.g. diningroom" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="newSectionDesc">Subtitle / Short Description *</label>
+                                    <input type="text" id="newSectionDesc" placeholder="e.g. Elegant entertaining and dining spaces tailored for luxury" required>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group flex-1">
+                                        <label>Cover Photo *</label>
+                                        <input type="file" id="newSectionCoverInput" accept="image/*" required>
+                                        <small class="form-hint">Displayed on the home page card.</small>
+                                    </div>
+                                    <div class="form-group flex-1">
+                                        <label>Initial Gallery Photos (Optional)</label>
+                                        <input type="file" id="newSectionGalleryInput" accept="image/*" multiple>
+                                        <small class="form-hint">Hold Ctrl to select multiple photos.</small>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-gold">
+                                    <span>Create & Add Section</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================== TAB 4: COLOURS & GRADIENTS ==================== -->
+                <section class="tab-pane" id="tab-palette">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h2>Website Colour Palette & Gradients</h2>
+                                <p>Change the global branding colors and gradients across the website. Changes update the live CSS theme variables instantly.</p>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <h3>Core Palette</h3>
+                            <div class="palette-grid">
+                                <div class="color-picker-card">
+                                    <label for="pickerColorLight">Light Background</label>
+                                    <div class="picker-row">
+                                        <input type="color" id="pickerColorLight">
+                                        <input type="text" id="textColorLight" class="hex-input">
+                                    </div>
+                                    <span class="color-role">Main site canvas (--color-light)</span>
+                                </div>
+
+                                <div class="color-picker-card">
+                                    <label for="pickerColorBeige">Warm Beige</label>
+                                    <div class="picker-row">
+                                        <input type="color" id="pickerColorBeige">
+                                        <input type="text" id="textColorBeige" class="hex-input">
+                                    </div>
+                                    <span class="color-role">Borders & secondary accents (--color-beige)</span>
+                                </div>
+
+                                <div class="color-picker-card">
+                                    <label for="pickerColorDark">Deep Dark Teal / Slate</label>
+                                    <div class="picker-row">
+                                        <input type="color" id="pickerColorDark">
+                                        <input type="text" id="textColorDark" class="hex-input">
+                                    </div>
+                                    <span class="color-role">Navbar, footer, dark sections (--color-dark)</span>
+                                </div>
+
+                                <div class="color-picker-card">
+                                    <label for="pickerColorGold">Luxury Gold Accent</label>
+                                    <div class="picker-row">
+                                        <input type="color" id="pickerColorGold">
+                                        <input type="text" id="textColorGold" class="hex-input">
+                                    </div>
+                                    <span class="color-role">Buttons, highlights, stars (--color-gold)</span>
+                                </div>
+
+                                <div class="color-picker-card">
+                                    <label for="pickerColorText">Body Text</label>
+                                    <div class="picker-row">
+                                        <input type="color" id="pickerColorText">
+                                        <input type="text" id="textColorText" class="hex-input">
+                                    </div>
+                                    <span class="color-role">Main body paragraph color (--color-text)</span>
+                                </div>
+
+                                <div class="color-picker-card">
+                                    <label for="pickerColorTextMuted">Muted Text</label>
+                                    <div class="picker-row">
+                                        <input type="color" id="pickerColorTextMuted">
+                                        <input type="text" id="textColorTextMuted" class="hex-input">
+                                    </div>
+                                    <span class="color-role">Subtitles & caption color (--color-text-muted)</span>
+                                </div>
+                            </div>
+
+                            <hr class="divider">
+
+                            <h3>Gradients</h3>
+                            <div class="form-group">
+                                <label for="heroOverlayInput">Hero Banner Dark Overlay Gradient</label>
+                                <input type="text" id="heroOverlayInput" placeholder="linear-gradient(...)">
+                                <small class="form-hint">Controls the atmospheric gradient overlay applied on the hero living room photo.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="consultationGradientInput">Consultation Section Background Gradient</label>
+                                <input type="text" id="consultationGradientInput" placeholder="linear-gradient(...)">
+                            </div>
+
+                            <!-- PALETTE PREVIEW SWATCH -->
+                            <div class="palette-preview-card">
+                                <h4>Live Palette Preview Swatch</h4>
+                                <div class="preview-swatch-bar">
+                                    <div class="swatch-item" id="swatchLight"><span>Light</span></div>
+                                    <div class="swatch-item" id="swatchBeige"><span>Beige</span></div>
+                                    <div class="swatch-item" id="swatchDark"><span>Dark</span></div>
+                                    <div class="swatch-item" id="swatchGold"><span>Gold</span></div>
+                                </div>
+                            </div>
+
+                            <button id="resetPaletteBtn" class="btn btn-outline btn-sm">Reset to Brand Defaults (#F9F9F6, #E3DFD5, #2F3E46, #D4AF37)</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================== TAB 5: WEBSITE TEXTS ==================== -->
+                <section class="tab-pane" id="tab-texts">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h2>Edit Website Content & Copy</h2>
+                                <p>Change all headlines, paragraphs, founder notes, statistics, and consultation details.</p>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <!-- HERO SECTION -->
+                            <fieldset class="admin-fieldset">
+                                <legend>Hero Banner Section</legend>
+                                <div class="form-group">
+                                    <label for="textHeroBadge">Top Badge</label>
+                                    <input type="text" id="textHeroBadge">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group flex-1">
+                                        <label for="textHeroTitle1">Main Heading (Line 1)</label>
+                                        <input type="text" id="textHeroTitle1">
+                                    </div>
+                                    <div class="form-group flex-1">
+                                        <label for="textHeroTitleAccent">Accent Heading (Italics/Gold)</label>
+                                        <input type="text" id="textHeroTitleAccent">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="textHeroSubtitle">Hero Subtitle Paragraph</label>
+                                    <textarea id="textHeroSubtitle" rows="2"></textarea>
+                                </div>
+                                
+                                <h4>Hero Counters (Statistics)</h4>
+                                <div class="form-row">
+                                    <div class="form-group flex-1">
+                                        <label>Stat 1 (e.g. 20+ Years)</label>
+                                        <div class="stat-edit-group">
+                                            <input type="number" id="stat1Number" placeholder="20">
+                                            <input type="text" id="stat1Label" placeholder="Years Experience">
+                                        </div>
+                                    </div>
+                                    <div class="form-group flex-1">
+                                        <label>Stat 2 (e.g. 500+ Projects)</label>
+                                        <div class="stat-edit-group">
+                                            <input type="number" id="stat2Number" placeholder="500">
+                                            <input type="text" id="stat2Label" placeholder="Projects Delivered">
+                                        </div>
+                                    </div>
+                                    <div class="form-group flex-1">
+                                        <label>Stat 3 (e.g. 350+ Families)</label>
+                                        <div class="stat-edit-group">
+                                            <input type="number" id="stat3Number" placeholder="350">
+                                            <input type="text" id="stat3Label" placeholder="Happy Families">
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <!-- OUR STORY / FOUNDER SECTION -->
+                            <fieldset class="admin-fieldset">
+                                <legend>Our Story / Experience Section</legend>
+                                <div class="form-row">
+                                    <div class="form-group flex-1">
+                                        <label for="textExpTag">Section Tag</label>
+                                        <input type="text" id="textExpTag">
+                                    </div>
+                                    <div class="form-group flex-1">
+                                        <label for="textExpTitle">Heading Title</label>
+                                        <input type="text" id="textExpTitle">
+                                    </div>
+                                    <div class="form-group flex-1">
+                                        <label for="textExpAccent">Heading Accent</label>
+                                        <input type="text" id="textExpAccent">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="textExpDesc">Story Paragraph</label>
+                                    <textarea id="textExpDesc" rows="3"></textarea>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group flex-1">
+                                        <label for="textFounderName">Founder Name</label>
+                                        <input type="text" id="textFounderName">
+                                    </div>
+                                    <div class="form-group flex-1">
+                                        <label for="textFounderRole">Founder Role</label>
+                                        <input type="text" id="textFounderRole">
+                                    </div>
+                                    <div class="form-group flex-1">
+                                        <label for="textFounderInitials">Founder Monogram</label>
+                                        <input type="text" id="textFounderInitials" maxlength="3">
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <!-- CONSULTATION & FOOTER -->
+                            <fieldset class="admin-fieldset">
+                                <legend>Consultation & Footer</legend>
+                                <div class="form-group">
+                                    <label for="textConsultationDesc">Consultation Section Description</label>
+                                    <textarea id="textConsultationDesc" rows="2"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="textFooterDesc">Footer Tagline</label>
+                                    <input type="text" id="textFooterDesc">
+                                </div>
+                                <div class="form-group">
+                                    <label for="textFooterCopyright">Footer Copyright Line</label>
+                                    <input type="text" id="textFooterCopyright">
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================== TAB 6: LOGO & BRANDING ==================== -->
+                <section class="tab-pane" id="tab-logo">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h2>Logo & Brand Identity</h2>
+                                <p>Customize the company monogram initials and brand name shown in the navbar, footer, and browser header.</p>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="brand-config-grid">
+                                <div class="brand-inputs">
+                                    <div class="form-group">
+                                        <label for="logoLettersInput">Monogram Letters (Center Oval)</label>
+                                        <input type="text" id="logoLettersInput" maxlength="3" value="LC">
+                                        <small class="form-hint">Usually 2 letters (e.g. LC for Luova Creation).</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="logoLine1Input">Brand Line 1</label>
+                                        <input type="text" id="logoLine1Input" value="LUOVA">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="logoLine2Input">Brand Line 2</label>
+                                        <input type="text" id="logoLine2Input" value="CREATION">
+                                    </div>
+                                </div>
+
+                                <div class="brand-preview-box">
+                                    <label>Live Logo Preview</label>
+                                    <div class="logo-preview-display">
+                                        <div class="logo-mark">
+                                            <span class="logo-dot top"></span>
+                                            <div class="logo-oval">
+                                                <span class="logo-letters" id="previewLogoLetters">LC</span>
+                                            </div>
+                                            <span class="logo-dot bottom"></span>
+                                        </div>
+                                        <div class="logo-text">
+                                            <span id="previewLogoLine1">LUOVA</span>
+                                            <span id="previewLogoLine2">CREATION</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================== TAB 7: CONTACT & ICONS ==================== -->
+                <section class="tab-pane" id="tab-contact">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h2>Contact Links & Floating Icons</h2>
+                                <p>Configure the phone numbers, pre-filled WhatsApp messages, and Instagram link wired to the floating icons and contact forms.</p>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="contactWhatsappInput">WhatsApp Direct Number (With Country Code)</label>
+                                <input type="text" id="contactWhatsappInput" placeholder="916290902501">
+                                <small class="form-hint">Used for the floating WhatsApp button and form submission redirects.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contactWhatsappMsgInput">WhatsApp Default Greeting Message</label>
+                                <textarea id="contactWhatsappMsgInput" rows="2"></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group flex-1">
+                                    <label for="contactPhoneRawInput">Phone Call Number (Dialable Link)</label>
+                                    <input type="text" id="contactPhoneRawInput" placeholder="+916290902501">
+                                </div>
+                                <div class="form-group flex-1">
+                                    <label for="contactPhoneDisplayInput">Phone Call Display Text (Visible to Users)</label>
+                                    <input type="text" id="contactPhoneDisplayInput" placeholder="+91 629 090 2501">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contactInstagramInput">Instagram Profile Link</label>
+                                <input type="url" id="contactInstagramInput" placeholder="https://www.instagram.com/luova__creation_?igsh=c21md3lyamt3bGd1">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================== TAB 8: FAQ MANAGER ==================== -->
+                <section class="tab-pane" id="tab-faq">
+                    <div class="card">
+                        <div class="card-header flex-between">
+                            <div>
+                                <h2>Frequently Asked Questions (FAQ)</h2>
+                                <p>Manage the questions and answers displayed in the FAQ accordion section.</p>
+                            </div>
+                            <button id="addFaqBtn" class="btn btn-primary btn-sm">+ Add New Question</button>
+                        </div>
+
+                        <div class="card-body">
+                            <div id="faqListContainer" class="faq-admin-list">
+                                <!-- Dynamic FAQ items with question, answer and remove button -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <!-- STICKY BOTTOM PUBLISH BAR -->
+        <footer class="admin-publish-bar">
+            <div class="publish-status">
+                <span id="unsavedChangesIndicator">🟢 All changes saved in memory</span>
+            </div>
+            <div class="publish-actions">
+                <button id="saveLocalBtn" class="btn btn-outline btn-sm">Save Locally</button>
+                <button id="mainPublishBtn" class="btn btn-gold">
+                    <span class="btn-spinner" style="display:none;"></span>
+                    <span>Commit & Publish Live to GitHub</span>
+                </button>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- SCRIPT -->
+    <script src="admin.js"></script>
+</body>
+</html>

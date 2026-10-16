@@ -1,0 +1,197 @@
+{
+  "brand": {
+    "logoLetters": "LC",
+    "logoLine1": "LUOVA",
+    "logoLine2": "CREATION",
+    "logoImage": ""
+  },
+  "theme": {
+    "colorLight": "#F9F9F6",
+    "colorBeige": "#E3DFD5",
+    "colorDark": "#2F3E46",
+    "colorGold": "#D4AF37",
+    "colorText": "#3a3a3a",
+    "colorTextMuted": "#7a7a7a",
+    "heroOverlay": "linear-gradient(135deg, rgba(47, 62, 70, 0.85) 0%, rgba(47, 62, 70, 0.6) 50%, rgba(47, 62, 70, 0.4) 100%)",
+    "consultationGradient": "linear-gradient(135deg, #2F3E46 0%, #1c262b 100%)"
+  },
+  "contact": {
+    "phone": "+91 629 090 2501",
+    "phoneRaw": "+916290902501",
+    "whatsapp": "916290902501",
+    "whatsappMessage": "Hi Luova Creation, I'm interested in your interior design services.",
+    "instagram": "https://www.instagram.com/luova__creation_?igsh=c21md3lyamt3bGd1"
+  },
+  "hero": {
+    "badge": "Premium Interior Design Studio",
+    "titleLine1": "Crafting Spaces",
+    "titleAccent": "That Inspire",
+    "subtitle": "Transform your home into a masterpiece of design. 20 years of excellence in creating breathtaking interiors that reflect your personality.",
+    "bgImage": "images/hero-bg.jpg",
+    "stats": [
+      { "number": 20, "suffix": "+", "label": "Years Experience" },
+      { "number": 500, "suffix": "+", "label": "Projects Delivered" },
+      { "number": 350, "suffix": "+", "label": "Happy Families" }
+    ]
+  },
+  "experience": {
+    "tag": "Our Story",
+    "titleLine1": "Two Decades of",
+    "titleAccent": "Transforming Spaces",
+    "desc": "Founded by <strong>Indranil Chatterjee</strong>, Luova Creation has been a pioneer in the interior design industry for over <strong>20 years</strong>. Our name \"Luova\" — meaning <em>creative</em> — embodies our philosophy of bringing innovative, personalized design solutions to every home.",
+    "card1Number": "20",
+    "card1Text": "Years of<br>Excellence",
+    "card2Label": "Award Winning<br>Designs",
+    "image": "images/service-customized.jpg",
+    "founderName": "Indranil Chatterjee",
+    "founderRole": "Founder & Lead Designer",
+    "founderInitials": "IC",
+    "features": [
+      {
+        "title": "End-to-End Solutions",
+        "desc": "From concept to completion, we handle every detail of your interior transformation."
+      },
+      {
+        "title": "Quality Guaranteed",
+        "desc": "We use only premium materials with an industry-leading warranty on all our work."
+      },
+      {
+        "title": "Client-First Approach",
+        "desc": "Your vision drives our design. We listen, understand, and deliver beyond expectations."
+      }
+    ]
+  },
+  "services": [
+    {
+      "id": "masterbedroom",
+      "name": "Master Bedroom",
+      "subtitle": "Luxurious sanctuaries designed for comfort and elegance",
+      "coverImage": "images/service-masterbedroom.jpg",
+      "images": [
+        "images/masterbedroom-1.jpg",
+        "images/masterbedroom-2.jpg",
+        "images/masterbedroom-3.jpg",
+        "images/masterbedroom-4.jpg",
+        "images/masterbedroom-5.jpg",
+        "images/masterbedroom-6.jpg",
+        "images/masterbedroom-7.jpg",
+        "images/masterbedroom-8.jpg"
+      ]
+    },
+    {
+      "id": "kitchen",
+      "name": "Kitchen",
+      "subtitle": "Modular kitchens that blend functionality with style",
+      "coverImage": "images/service-kitchen.jpg",
+      "images": [
+        "images/kitchen-1.jpg",
+        "images/kitchen-2.jpg",
+        "images/kitchen-3.jpg",
+        "images/kitchen-4.jpg"
+      ]
+    },
+    {
+      "id": "customized",
+      "name": "Customized Design",
+      "subtitle": "Bespoke solutions tailored to your unique vision",
+      "coverImage": "images/service-customized.jpg",
+      "images": [
+        "images/customized-1.jpg",
+        "images/customized-2.jpg",
+        "images/customized-3.jpg",
+        "images/customized-4.jpg",
+        "images/customized-5.jpg",
+        "images/customized-6.jpg",
+        "images/customized-7.jpg",
+        "images/customized-8.jpg",
+        "images/customized-9.jpg"
+      ]
+    },
+    {
+      "id": "tvunit",
+      "name": "TV Unit",
+      "subtitle": "Sleek entertainment centres that become focal points",
+      "coverImage": "images/service-tvunit.jpg",
+      "images": [
+        "images/tvunit-1.jpg",
+        "images/tvunit-2.jpg",
+        "images/tvunit-3.jpg",
+        "images/tvunit-4.jpg",
+        "images/tvunit-5.jpg",
+        "images/tvunit-6.jpg",
+        "images/tvunit-7.jpg",
+        "images/tvunit-8.jpg",
+        "images/tvunit-9.jpg"
+      ]
+    },
+    {
+      "id": "pujaunit",
+      "name": "Puja Unit",
+      "subtitle": "Sacred spaces designed with devotion and grace",
+      "coverImage": "images/service-pujaunit.jpg",
+      "images": [
+        "images/pujaunit-1.jpg",
+        "images/pujaunit-2.jpg",
+        "images/pujaunit-3.jpg",
+        "images/pujaunit-4.jpg",
+        "images/pujaunit-5.jpg"
+      ]
+    },
+    {
+      "id": "cruise",
+      "name": "Cruise Designs",
+      "subtitle": "Compact luxury interiors for premium cruise cabins & lounges",
+      "coverImage": "images/service-cruise.jpg",
+      "images": [
+        "images/cruise-1.jpg",
+        "images/cruise-2.jpg",
+        "images/cruise-3.jpg",
+        "images/cruise-4.jpg",
+        "images/cruise-5.jpg",
+        "images/cruise-6.jpg",
+        "images/cruise-7.jpg",
+        "images/cruise-8.jpg",
+        "images/cruise-9.jpg",
+        "images/cruise-10.jpg"
+      ]
+    }
+  ],
+  "consultation": {
+    "tag": "Free Consultation",
+    "titleLine1": "Let's Design Your",
+    "titleAccent": "Dream Space",
+    "desc": "Ready to transform your home? Get a <strong>free consultation</strong> with our expert design team. We'll discuss your vision, budget, and timeline to create a personalised plan just for you.",
+    "benefits": [
+      "Free 3D Design Visualization",
+      "No-Obligation Quote",
+      "Expert Design Consultation",
+      "Transparent Pricing"
+    ]
+  },
+  "faqs": [
+    {
+      "question": "Why is Luova Creation best for you?",
+      "answer": "Luova Creation stands out because of our 20+ years of experience, our founder Indranil Chatterjee's hands-on approach to every project, and our commitment to using only premium-quality materials. We don't just design spaces — we create experiences. Our designs are tailored to your lifestyle, budget, and personality, ensuring every corner of your home feels uniquely yours. From concept to completion, we manage everything so you can enjoy a stress-free transformation."
+    },
+    {
+      "question": "Is Luova Creation an established company?",
+      "answer": "Absolutely. Luova Creation has been a trusted name in the interior design industry for over 20 years. Founded by Indranil Chatterjee, we have successfully completed 500+ projects and earned the trust of 350+ happy families. Our portfolio spans residential and commercial projects, and our reputation is built on consistent quality, on-time delivery, and exceptional craftsmanship."
+    },
+    {
+      "question": "Does Luova Creation offer a guarantee on their work?",
+      "answer": "Yes, we do. We stand behind every project with a comprehensive warranty on materials and workmanship. Our quality assurance process includes multiple checkpoints during installation, and we provide after-sales support to ensure everything remains perfect long after we've completed the job. Your satisfaction is our guarantee — we don't rest until you're thrilled with the result."
+    },
+    {
+      "question": "What is the process to get started with Luova Creation?",
+      "answer": "Getting started is simple! Just fill out our free consultation form or call us directly. Here's what happens next: (1) We schedule a free consultation to understand your vision, (2) Our design team creates 3D visualizations for your approval, (3) We provide a detailed, transparent quotation, (4) Once approved, our expert craftsmen bring the design to life, (5) Final walkthrough and handover. The entire process is seamless and stress-free."
+    },
+    {
+      "question": "How long does a typical interior project take?",
+      "answer": "The timeline depends on the scope and complexity of the project. A single room like a master bedroom or kitchen typically takes 25–35 days, while a full home interior project can take 45–60 days. We always provide a clear timeline upfront and are committed to on-time delivery without compromising on quality."
+    }
+  ],
+  "footer": {
+    "brandDesc": "Crafting extraordinary interiors for over 20 years. Your dream home is our canvas.",
+    "copyright": "© 2026 Luova Creation. All Rights Reserved."
+  }
+}
